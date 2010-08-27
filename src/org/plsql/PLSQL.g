@@ -394,6 +394,7 @@ sql_statement
     | delete_statement
     | insert_statement
     | lock_table_statement
+    | merge_statement
     | rollback_statement
     | savepoint_statement
     | select_statement
@@ -415,6 +416,10 @@ insert_statement :
 
 lock_table_statement :
         LOCK TABLE swallow_to_semi
+    ;
+
+merge_statement :
+        MERGE swallow_to_semi?
     ;
 
 rollback_statement :
@@ -670,6 +675,7 @@ LANGUAGE:	'language';
 LIKE : 'like' ;
 LIMIT : 'limit' ;
 LOCK	:	'lock';
+MERGE : 'merge' ;
 NOT : 'not' ;
 NOTFOUND:	'notfound';
 NULL : 'null' ;
