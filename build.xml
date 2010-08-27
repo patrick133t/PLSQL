@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+  Copyright 2010 Patrick Higgins 
+
+  This file is part of PLSQL.
+
+  PLSQL is free software: you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation, either version 2.1 of
+  the License, or (at your option) any later version.
+
+  PLSQL is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with PLSQL.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<project name="PLSQL" default="compile">
+  <property name="ant.build.javac.source" value="1.5"/>
+  <property name="ant.build.javac.target" value="1.5"/>
+
+  <path id="project.class.path">
+    <fileset dir="lib">
+      <include name="log4j-1.2.15.jar"/>
+      <include name="antlr-3.2.jar"/>
+    </fileset>
+  </path>
+
+  <target name="compile">
+    <mkdir dir="classes"/>
+    <javac srcdir="src" destdir="classes" debug="on">
+      <classpath refid="project.class.path"/>
+    </javac>
+  </target>
+
+  <target name="antlr">
+    <java classname="org.antlr.Tool"
+          fork="true"
+          failonerror="true"
+          maxmemory="64m">
+      <arg value="src/org/plsql/PLSQL.g"/>
+      <classpath refid="project.class.path"/>
+    </java>
+    <delete>
+      <fileset dir="." includes="*.tokens"/>
+    </delete>
+  </target>
+
+</project>

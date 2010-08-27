@@ -1,0 +1,5 @@
+This project is basically just a test harness for the PL/SQL grammar in src/org/plsql/PLSQL.g.
+
+The grammar is the star of the show, and can be used in other projects.
+
+See COPYING for licensing/copying conditions.
