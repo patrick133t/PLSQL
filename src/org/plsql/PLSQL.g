@@ -266,7 +266,7 @@ lvalue
     ;
 
 assign_or_call_statement
-    : lvalue ( DOT delete_call | ASSIGN expression )?
+    : lvalue ( DOT ( delete_call | raise_call ) | ASSIGN expression )?
     ;
 
 call
@@ -275,6 +275,10 @@ call
 
 delete_call
     : DELETE ( LPAREN parameter? RPAREN )?
+    ;
+
+raise_call
+    : RAISE call_args
     ;
 
 basic_loop_statement :
@@ -854,7 +858,7 @@ DOUBLEQUOTED_STRING
 WS	:	(' '|'\r'|'\t'|'\n') {$channel=HIDDEN;}
 	;
 SL_COMMENT
-	:	'--' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+	:	'--' ~('\n'|'\r')* (EOF | '\r'? '\n') {$channel=HIDDEN;}
 	;
 ML_COMMENT
 	:	'/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
